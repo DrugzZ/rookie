@@ -1,34 +1,39 @@
 .App {
-  padding: 2rem 4rem;
+  text-align: center;
+  height: calc(100vh - 4rem);
 }
 
 .App-header {
-  display: flex;
+  min-height: 10vh;
+  padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 .App-logo {
-  width: 7vmin;
+  min-height: 5rem;
+  height: 10vh;
 }
 
-.Content-wrap {
+.Hero-wrap {
   display: flex;
-  height: calc((100vh - 7vmin) - 5rem);
+  justify-content: space-evenly;
+  height: calc(100% - 10vh - 2rem);
 }
 
 .Left-pane {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 40%;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .Hero-text {
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
 }
 
 .hero-text-1 {
   font-family: "Staatliches", cursive;
-  font-size: 8rem;
+  font-size: calc(16px + 16vmin);
   color: #212121;
   line-height: 0.5;
   letter-spacing: 0.1rem;
@@ -37,7 +42,7 @@
 
 .hero-text-2 {
   font-family: "Staatliches", cursive;
-  font-size: 7rem;
+  font-size: calc(16px + 14vmin);
   color: #212121;
 }
 
@@ -51,10 +56,7 @@
 
 .Contact-form {
   display: flex;
-}
-
-.email-form {
-  position: relative;
+  flex-direction: column;
 }
 
 .email-input {
@@ -62,13 +64,12 @@
   font-size: 1rem;
   letter-spacing: 0.05rem;
   outline: none;
-  width: 80%;
   border: 0;
   border-radius: 4px;
   line-height: 32px;
   padding: 8px 36px 8px 20px;
   box-shadow: 0 4px 12px -2px rgba(26, 35, 126, 0.25);
-  margin-bottom: 2rem;
+  margin: 0 2rem 2rem 2rem;
 }
 
 .email-input::placeholder {
@@ -79,8 +80,8 @@
   font-family: "Open Sans", sans-serif;
   font-size: 1rem;
   letter-spacing: 0.05rem;
-  width: auto;
   padding: 1rem 20px;
+  margin: 0 5rem;
   text-align: center;
   transition: 0.5s;
   background-size: 200% auto;
@@ -89,10 +90,11 @@
   border: none;
   background-image: linear-gradient(
     to right,
-    #ea549c 0%,
+    #e53e65 0%,
     #1a237e 51%,
-    #e53e65 100%
+    #ea549c 100%
   );
+  box-shadow: 0 15px 40px -2px #1a237e3d;
 }
 
 .hero-button:hover {
@@ -100,7 +102,61 @@
 }
 
 .Right-pane {
-  display: flex;
-  width: 60%;
-  padding: 5rem 2rem;
+  display: none;
+}
+
+@media only screen and (max-width: 400px) {
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+  .App-header {
+    padding: 0;
+    margin: 0;
+  }
+
+  .App {
+    flex-direction: row;
+    text-align: left;
+    padding: 2rem 4rem;
+    min-height: 600px;
+  }
+
+  .Left-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+    height: 100%;
+  }
+
+  .Contact-form {
+    margin: 0;
+  }
+
+  .email-input {
+    margin: 0 0 2rem 0;
+    width: 60%;
+  }
+
+  .hero-button {
+    margin: 0;
+    width: fit-content;
+  }
+
+  .Right-pane {
+    display: flex;
+    width: 60%;
+    height: 100%;
+    padding-left: 2rem;
+    justify-content: center;
+  }
+
+  .Right-pane img {
+    align-self: center;
+  }
 }

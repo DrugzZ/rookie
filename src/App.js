@@ -8,11 +8,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <div className="App-logo">
-            <img src={logo} alt="logo" />
-          </div>
+            <img src={logo} alt="logo" className="App-logo"/>
         </header>
-        <section className="Content-wrap">
+        <section className="Hero-wrap">
           <div className="Left-pane">
             <div className="Hero-text">
               <p className="hero-text-1">rookie</p>
@@ -20,10 +18,8 @@ class App extends Component {
               <h1 className="hero-desc">Цифровое маркетинговое агентство.</h1>
             </div>
             <div className="Contact-form">
-            <form className="email-form">
               <input className="email-input" placeholder="Введите email" type="email" name="email" />
               <button className="hero-button" type="submit">Обратная связь</button>
-            </form>
             </div>
           </div>
           <div className="Right-pane">
