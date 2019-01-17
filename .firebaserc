@@ -1,5 +1,6 @@
 {
   "projects": {
-    "Rookie": "rookie-3dafb"
+    "Rookie": "rookie-3dafb",
+    "default": "rookie-3dafb"
   }
 }
