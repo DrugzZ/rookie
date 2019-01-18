@@ -72,6 +72,10 @@
   margin: 0 2rem 2rem 2rem;
 }
 
+.plholderError::placeholder {
+  color: #e26565 !important;
+}
+
 .email-input::placeholder {
   color: #c7c8cc;
 }
@@ -87,6 +91,8 @@
   background-size: 200% auto;
   color: white;
   border-radius: 4px;
+  width: 175px;
+  height: 52px;
   border: none;
   background-image: linear-gradient(
     to right,
@@ -145,7 +151,6 @@
 
   .hero-button {
     margin: 0;
-    width: fit-content;
   }
 
   .Right-pane {

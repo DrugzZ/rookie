@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import logo from './logo.png';
+import {ReactComponent as Spinner} from './spinner.svg'
 import rightPaneBg from './right-pane-bg.png';
 import './App.css';
 
 class App extends Component {
   state = {
     email: "",
-    verified: false, 
-    sent: false
+    spinner: false,
+    emailPlaceholder: "Введите email"
   }
 
   handleChange = e => {
@@ -18,18 +19,31 @@ class App extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    axios.get(`https://apilayer.net/api/check?access_key=dc6708bbf55fd23edc3de5aa7829f771&email=${this.state.email}&smtp=1`)
+    if(this.state.email !== ""){
+      this.setState({spinner: true});
+      axios.get(`https://apilayer.net/api/check?access_key=dc6708bbf55fd23edc3de5aa7829f771&email=${this.state.email}&smtp=1`)
       .then(res => {
         let {format_valid, smtp_check} = res.data;
         return format_valid && smtp_check
       })
       .then(verified => {
         if(verified){
-          console.log("Good address")
+          axios.get(`https://us-central1-rookie-3dafb.cloudfunctions.net/contacts?text=${this.state.email}`)
+          .then(res => {
+            if(res.status === 200){
+              this.setState({email: "", spinner: false})
+            } else {
+              console.log(res);
+            }
+          })
+          .catch(err => console.error(err))
         } else {
-          console.log("Bad address")
+          this.setState({email: "", emailPlaceholder: "Введите корректный email", spinner: false})
         }
       })
+    } else {
+      this.setState({emailPlaceholder: "Введите email, пожалуйста!"})
+    }
   }
 
   render() {
@@ -49,8 +63,8 @@ class App extends Component {
               <input 
                 value={this.state.email}
                 onChange={this.handleChange}
-                className="email-input" 
-                placeholder="Введите email" 
+                className={`email-input ${this.state.emailPlaceholder === 'Введите email' ? null : 'plholderError'}`}
+                placeholder={this.state.emailPlaceholder} 
                 type="email" 
                 name="email" 
               />
@@ -58,7 +72,7 @@ class App extends Component {
                 onClick={this.handleClick}
                 className="hero-button" 
                 type="submit">
-                Обратная связь
+                {this.state.spinner ? <Spinner /> : 'Обратная связь'}
               </button>
             </div>
           </div>
