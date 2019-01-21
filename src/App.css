@@ -1,6 +1,11 @@
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
 .App {
   text-align: center;
   height: calc(100vh - 4rem);
+  min-height: 500px;
 }
 
 .App-header {
@@ -35,7 +40,7 @@
   font-family: "Staatliches", cursive;
   font-size: calc(16px + 16vmin);
   color: #212121;
-  line-height: 0.5;
+  line-height: 0.55;
   letter-spacing: 0.1rem;
   background-color: #ffd740;
 }
@@ -54,9 +59,24 @@
   color: #212121;
 }
 
+.success-msg {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.msg-sent {
+  background-color: #ffd740;
+  padding: 0 5px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .Contact-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .email-input {
@@ -111,13 +131,6 @@
   display: none;
 }
 
-@media only screen and (max-width: 400px) {
-}
-
-/* Tablet Styles */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
-}
-
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
   .App-header {
@@ -129,7 +142,6 @@
     flex-direction: row;
     text-align: left;
     padding: 2rem 4rem;
-    min-height: 600px;
   }
 
   .Left-pane {
@@ -142,11 +154,16 @@
 
   .Contact-form {
     margin: 0;
+    align-items: start;
   }
 
   .email-input {
     margin: 0 0 2rem 0;
     width: 60%;
+  }
+
+  .success-msg {
+    align-items: start;
   }
 
   .hero-button {
@@ -163,5 +180,16 @@
 
   .Right-pane img {
     align-self: center;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  #root {
+    display: flex;
+    justify-content: center;
+  }
+
+  .App {
+    max-width: 80vw;
   }
 }

@@ -9,7 +9,9 @@ class App extends Component {
   state = {
     email: "",
     spinner: false,
-    emailPlaceholder: "Введите email"
+    emailPlaceholder: "Введите email",
+    msgSent: false,
+    msgFailed: true
   }
 
   handleChange = e => {
@@ -17,7 +19,7 @@ class App extends Component {
     this.setState({email: val})
   }
 
-  handleClick = e => {
+  handleSubmit = e => {
     e.preventDefault();
     if(this.state.email !== ""){
       this.setState({spinner: true});
@@ -28,12 +30,18 @@ class App extends Component {
       })
       .then(verified => {
         if(verified){
-          axios.get(`https://us-central1-rookie-3dafb.cloudfunctions.net/contacts?text=${this.state.email}`)
+          axios({
+            method: 'post',
+            url: 'https://us-central1-rookie-3dafb.cloudfunctions.net/contacts',
+            data: {
+              text: this.state.email
+            }
+          })
           .then(res => {
             if(res.status === 200){
-              this.setState({email: "", spinner: false})
+              this.setState({email: "", spinner: false, msgSent: true})
             } else {
-              console.log(res);
+              this.setState({email: "", spinner: false, msgFailed: true})
             }
           })
           .catch(err => console.error(err))
@@ -59,22 +67,26 @@ class App extends Component {
               <p className="hero-text-2">digital</p>
               <h1 className="hero-desc">Цифровое маркетинговое агентство.</h1>
             </div>
-            <div className="Contact-form">
-              <input 
-                value={this.state.email}
-                onChange={this.handleChange}
-                className={`email-input ${this.state.emailPlaceholder === 'Введите email' ? null : 'plholderError'}`}
-                placeholder={this.state.emailPlaceholder} 
-                type="email" 
-                name="email" 
-              />
-              <button 
-                onClick={this.handleClick}
-                className="hero-button" 
-                type="submit">
-                {this.state.spinner ? <Spinner /> : 'Обратная связь'}
-              </button>
-            </div>
+            {this.state.msgSent ? 
+            <div className="success-msg">
+              <p className="hero-desc mb-1 msg-sent">Спасибо, что обратились к нам!</p>
+              <p className="hero-desc msg-sent">Мы свяжемся с Вами в ближайщее время.</p>
+            </div> : 
+            <form className="Contact-form" onSubmit={this.handleSubmit} noValidate>
+            <input 
+              value={this.state.email}
+              onChange={this.handleChange}
+              className={`email-input ${this.state.emailPlaceholder === 'Введите email' ? null : 'plholderError'}`}
+              placeholder={this.state.emailPlaceholder} 
+              type="email" 
+              name="email" 
+            />
+            <button 
+              className="hero-button" 
+              type="submit">
+              {this.state.spinner ? <Spinner /> : 'Обратная связь'}
+            </button>
+          </form>}
           </div>
           <div className="Right-pane">
             <img src={rightPaneBg} className="Right-pane-img" alt="Rookie Digital Marketing Agency" />
