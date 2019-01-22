@@ -125,6 +125,7 @@
 
 .hero-button:hover {
   background-position: right center;
+  cursor: pointer;
 }
 
 .Right-pane {
@@ -171,6 +172,7 @@
   }
 
   .Right-pane {
+    position: relative;
     display: flex;
     width: 60%;
     height: 100%;
@@ -180,6 +182,12 @@
 
   .Right-pane img {
     align-self: center;
+  }
+
+  .particles-container {
+    position: absolute;
+    align-self: center;
+    transform: scale(0.954);
   }
 }
 

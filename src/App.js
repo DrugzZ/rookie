@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import logo from './logo.png';
 import {ReactComponent as Spinner} from './spinner.svg'
+import {ReactComponent as Particles} from './particles.svg'
 import rightPaneBg from './right-pane-bg.png';
 import './App.css';
 
@@ -54,9 +55,18 @@ class App extends Component {
     }
   }
 
+  handleMove = e => {
+    let x = e.clientX * 0.03;
+    let y = e.clientY * 0.03;
+    let particles = document.getElementsByClassName("move");
+    for(let i = 0; i < particles.length; i++){
+      particles[i].setAttribute('transform', `translate(${x} ${y})`);
+    }
+  }
+
   render() {
     return (
-      <div className="App">
+      <div onMouseMove={this.handleMove} className="App">
         <header className="App-header">
             <img src={logo} alt="logo" className="App-logo"/>
         </header>
@@ -89,6 +99,7 @@ class App extends Component {
           </form>}
           </div>
           <div className="Right-pane">
+            <Particles className="particles-container" />
             <img src={rightPaneBg} className="Right-pane-img" alt="Rookie Digital Marketing Agency" />
           </div>
         </section>
