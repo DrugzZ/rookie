@@ -90,6 +90,7 @@
   padding: 8px 36px 8px 20px;
   box-shadow: 0 4px 12px -2px rgba(26, 35, 126, 0.25);
   margin: 0 2rem 2rem 2rem;
+  min-width: 250px;
 }
 
 .plholderError::placeholder {
@@ -199,5 +200,28 @@
 
   .App {
     max-width: 80vw;
+  }
+}
+
+.clouds * {
+  animation-name: glide;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.clouds #upper-sm,
+.clouds #lower-lg {
+  animation-direction: alternate-reverse;
+  animation-delay: 0.5s;
+}
+
+@keyframes glide {
+  from {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(5px);
   }
 }

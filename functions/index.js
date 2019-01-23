@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 
 const nodemailer = require('nodemailer');
 const cors = require('cors')({
-  "origin": true,
+  "origin": 'https://rookiedigital.com',
   "methods": "POST",
 });
 
@@ -21,15 +21,20 @@ exports.contacts = functions.https.onRequest((req, res) => {
     const msg = req.body.text;
     
     const mailOptions = {
-      from: '"Rookie Digital"',
-      to: ['casper.ru@gmail.com'],
-      subject: 'Писмо от контактната форма на rookiedigital.com',
-      text: msg,
+      from: 'Rookie Digital <reachroutrookie@gmail.com>',
+      to: ['rumen@rookiemedia.net'],
+      subject: 'От контактната форма на rookiedigital.com',
+      text: `Посоченият адрес иска да се свърже с вас: ${msg}`,
     };
   
     mailTransport.sendMail(mailOptions)
-    .then(res.sendStatus(200))
-    .catch(error => res.status(400).send(`There was an error while sending the email: ${error}`)) 
-  
+    .then(info => {
+      console.log('Message sent: ' + info.response);
+      res.sendStatus(200)
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(403).send('There was an error while sending the email')
+    })
   });
 });

@@ -11,8 +11,7 @@ class App extends Component {
     email: "",
     spinner: false,
     emailPlaceholder: "Введите email",
-    msgSent: false,
-    msgFailed: true
+    msgSent: false
   }
 
   handleChange = e => {
@@ -38,14 +37,13 @@ class App extends Component {
               text: this.state.email
             }
           })
-          .then(res => {
-            if(res.status === 200){
+          .then(() => {
               this.setState({email: "", spinner: false, msgSent: true})
-            } else {
-              this.setState({email: "", spinner: false, msgFailed: true})
-            }
           })
-          .catch(err => console.error(err))
+          .catch(err => {
+            this.setState({email: "", spinner: false, emailPlaceholder: "Ошибка! Попробуйте еще раз."});
+            console.error(err)
+          })
         } else {
           this.setState({email: "", emailPlaceholder: "Введите корректный email", spinner: false})
         }
@@ -56,11 +54,17 @@ class App extends Component {
   }
 
   handleMove = e => {
-    let x = e.clientX * 0.03;
-    let y = e.clientY * 0.03;
+    let x = e.clientX * 0.01;
+    let y = e.clientY * 0.01;
     let particles = document.getElementsByClassName("move");
     for(let i = 0; i < particles.length; i++){
-      particles[i].setAttribute('transform', `translate(${x} ${y})`);
+      if(i % 2 === 0 && i !== 6) {
+        particles[i].setAttribute('transform', `translate(${-x} ${-y})`);
+      } else if (i % 3 === 0) {
+        particles[i].setAttribute('transform', `translate(${x} ${-y})`);
+      } else {
+        particles[i].setAttribute('transform', `translate(${-x} ${y})`);
+      }
     }
   }
 
