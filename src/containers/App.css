@@ -4,8 +4,9 @@
 
 .App {
   text-align: center;
-  height: calc(100vh - 4rem);
   min-height: 500px;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
 }
 
 .App-header {
@@ -22,7 +23,7 @@
 .Hero-wrap {
   display: flex;
   justify-content: space-evenly;
-  height: calc(100% - 10vh - 2rem);
+  height: calc(100vh - 10vh - 2rem);
 }
 
 .Left-pane {
@@ -133,6 +134,56 @@
   display: none;
 }
 
+.three-col-desc {
+  display: block;
+  text-align: center;
+}
+
+.desc-col {
+  background: linear-gradient(
+    to right bottom,
+    #fff 50%,
+    #ffd740 50%,
+    #ffd740 85%,
+    #fff 85%
+  );
+  min-width: 250px;
+  min-height: 200px;
+}
+.col-rev-bg {
+  background: linear-gradient(
+    to right top,
+    #fff 50%,
+    #ffd740 50%,
+    #ffd740 85%,
+    #fff 85%
+  );
+}
+
+.desc-icon {
+  padding: 1rem;
+  width: 3rem;
+}
+
+.desc-col p {
+  letter-spacing: 0.08rem;
+  padding: 1rem 3rem;
+  text-align: center;
+}
+
+@media only screen and (min-width: 610px) {
+  .three-col-desc {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .desc-col {
+    margin-bottom: 2rem;
+    width: 32%;
+  }
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
   .App-header {
@@ -201,6 +252,10 @@
   .App {
     max-width: 80vw;
   }
+
+  .Right-pane img {
+    width: 80%;
+  }
 }
 
 .clouds * {
@@ -223,5 +278,41 @@
   }
   to {
     transform: translate(5px);
+  }
+}
+
+.spinner {
+  -webkit-animation: rotate 2s linear infinite;
+  animation: rotate 2s linear infinite;
+  margin: 0 auto;
+  width: 23px;
+  height: 23px;
+}
+.spinner .path {
+  stroke: #fff;
+  stroke-linecap: round;
+  -webkit-animation: dash 1.5s ease-in-out infinite;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
   }
 }

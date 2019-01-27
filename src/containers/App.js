@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './logo.png';
-import {ReactComponent as Spinner} from './spinner.svg'
-import {ReactComponent as Particles} from './particles.svg'
-import rightPaneBg from './right-pane-bg.png';
+import logo from '../assets/images/logo.png';
+
+import {ReactComponent as Particles} from '../assets/images/particles.svg'
+import {ReactComponent as Thumbs} from '../assets/images/thumbs.svg'
+import {ReactComponent as Track} from '../assets/images/track.svg'
+import {ReactComponent as Verified} from '../assets/images/verified.svg'
+import rightPaneBg from '../assets/images/right-pane-bg.png';
+
 import './App.css';
+import Button from '../components/Button';
 
 class App extends Component {
   state = {
     email: "",
-    spinner: false,
+    loading: false,
     emailPlaceholder: "Введите email",
     msgSent: false
   }
@@ -22,7 +27,7 @@ class App extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if(this.state.email !== ""){
-      this.setState({spinner: true});
+      this.setState({loading: true});
       axios.get(`https://apilayer.net/api/check?access_key=dc6708bbf55fd23edc3de5aa7829f771&email=${this.state.email}&smtp=1`)
       .then(res => {
         let {format_valid, smtp_check} = res.data;
@@ -38,14 +43,13 @@ class App extends Component {
             }
           })
           .then(() => {
-              this.setState({email: "", spinner: false, msgSent: true})
+              this.setState({email: "", loading: false, msgSent: true})
           })
-          .catch(err => {
-            this.setState({email: "", spinner: false, emailPlaceholder: "Ошибка! Попробуйте еще раз."});
-            console.error(err)
+          .catch(() => {
+            this.setState({email: "", loading: false, emailPlaceholder: "Ошибка! Попробуйте еще раз."});
           })
         } else {
-          this.setState({email: "", emailPlaceholder: "Введите корректный email", spinner: false})
+          this.setState({email: "", emailPlaceholder: "Введите корректный email", loading: false})
         }
       })
     } else {
@@ -57,7 +61,8 @@ class App extends Component {
     let x = e.clientX * 0.01;
     let y = e.clientY * 0.01;
     let particles = document.getElementsByClassName("move");
-    for(let i = 0; i < particles.length; i++){
+    let i = 0;
+    for(i; i < particles.length; i++){
       if(i % 2 === 0 && i !== 6) {
         particles[i].setAttribute('transform', `translate(${-x} ${-y})`);
       } else if (i % 3 === 0) {
@@ -95,17 +100,37 @@ class App extends Component {
               type="email" 
               name="email" 
             />
-            <button 
-              className="hero-button" 
-              type="submit">
-              {this.state.spinner ? <Spinner /> : 'Обратная связь'}
-            </button>
+            <Button loading={this.state.loading} />
           </form>}
           </div>
           <div className="Right-pane">
             <Particles className="particles-container" />
             <img src={rightPaneBg} className="Right-pane-img" alt="Rookie Digital Marketing Agency" />
           </div>
+        </section>
+        <section className="three-col-desc">
+              <div className="desc-col">
+                <Thumbs className="desc-icon"/>
+                <h2>This is Title 1</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                </p>
+              </div>
+              <div className="desc-col col-rev-bg ">
+                <Track className="desc-icon"/>
+                <h2>This is Title 2</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                </p>
+              </div>
+              <div className="desc-col">
+                <Verified className="desc-icon"/>
+                <h2>This is Title 3</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                </p>
+              </div>
         </section>
       </div>
     );
